@@ -1,0 +1,380 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+}
+.question-background{
+    background-image: url('../test_images/2.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.wrapper{
+    position:relative;
+    width:100%;
+    height:100%;
+    background-color:#962870;
+    overflow: hidden;
+}
+
+.side{
+    height:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    width:200px;
+    color:white;
+    padding:50px 0;
+}
+.side.red{
+    left:inherit;
+    right:0;
+}
+
+.side .team{
+    font-size:2.5em;
+    text-align: center;
+    font-family: "BadaBoom";
+    text-shadow: 0px 5px 1px  #2e0d2499;
+}
+
+.side .score{
+    width:100%;
+    background-color: #005fb8;
+    height:130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size:6em;
+    border:5px solid #fff;
+    transform:skewX(-5deg) translateX(-10px);
+    font-family: "BadaBoom";
+    box-shadow: 0px 5px 1px 0 #2e0d2499;
+}
+.side .score .score-buttons{
+    width:100%;
+    position: absolute;
+    top:calc(100% + 5px);
+    display: flex;
+    padding:0 40px;
+    left:0;
+    height: 20px;
+}
+.side .score .score-buttons div{
+    width:30px;
+    height:35px;
+    margin:0 3px;
+    background:#fff;
+    z-index:-1;
+    transform:skewY(10deg) translateY(-2.6px);
+    position: relative;
+    box-shadow: 0px 5px 3px 0 #2e0d2499;
+}
+
+.side .score .score-buttons div:nth-of-type(2){
+    transform:skewY(-10deg) translateY(-2.6px);
+}
+
+.side .score .score-buttons div::after{
+    content:"-";
+    font-size:0.5em;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:#2e0d24;
+}
+.side .score .score-buttons div.increase::after{
+    content:"+";
+}
+.side .help-methods {
+    margin-top:100px;
+}
+.side .help-methods div{
+    width:180px;
+    height:80px;
+    margin-top:20px;
+    transform:skewX(-15deg) translateX(-15px);
+    background-color: #fff;
+    position: relative;
+}
+.side .help-methods div.dark{
+    transform:skewX(15deg) translateX(-15px);
+    width:130px;
+    background-color: #2e0d24;
+}
+.side.red .help-methods div{
+    transform:skewX(-15deg) translateX(15px)
+}
+.side.red .help-methods div.dark{
+    transform:skewX(15deg) translateX(15px)
+}
+.side .help-methods div::after{
+    content:"";
+    width:60px;
+    height:60px;
+    position: absolute;
+    top:50%;
+    right:30px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transform:skewX(15deg) translateY(-50%);
+}
+.side .help-methods div.dark::after{
+    transform:skewX(-15deg) translateY(-50%);
+}
+.search::after{
+    background-image: url(../png/search-dark.png);
+}
+.dark.search::after{
+    background-image: url(../png/search-white.png);
+}
+
+.audience::after{
+    background-image: url(../png/audiance-dark.png);
+}
+.dark.audience::after{
+    background-image: url(../png/audiance-white.png);
+}
+.new::after{
+    background-image: url(../png/change-question-dark.png);
+}
+.dark.new::after{
+    background-image: url(../png/change-question-white.png);
+}
+.time::after{
+    background-image: url(../png/add-time-dark.png);
+}
+.dark.time::after{
+    background-image: url(../png/add-time-white.png);
+}
+/* TODO: Add help method icons */
+
+
+.side.red .score{
+    background-color:#e0032d;
+    transform:skewX(5deg) translateX(10px)
+}
+.side.red .score .score-buttons{
+    justify-content:flex-end;
+}
+
+.side.red .help-methods{
+    direction: rtl;
+}
+
+.side.red .help-methods div::after{
+    right:inherit;
+    left:30px;
+}
+
+.main-body{
+    width:calc(100% - 400px);
+    height:100%;
+    margin:0 auto;
+    position: relative;
+    padding-top:50px;
+}
+.main-body .question-number{
+    position: absolute;
+    background:#fff;
+    width:80px;
+    height:100px;
+    top:0;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-family:"BadaBoom";
+    font-size:4em;
+    color:#2e0d24;
+    transform:skewY(15deg) translateX(-38px);
+    box-shadow: 0px 5px 3px 0 #2e0d2499;
+}
+.main-body .question-number span{
+    transform:skewY(-15deg) translateY(7px);
+}
+.main-body .box-container{
+    width:80%;
+    border:10px solid #fff;
+    margin:0 auto;
+    height:600px;
+    box-shadow: 0px 7px 2px 0 #2e0d24ee;
+}
+.main-body .box-container img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+}
+
+/* TODO: Adjust image/video size in the container */
+.main-body .answers-container{
+    position:relative;
+    width:100%;
+    height:250px;
+}
+.main-body .timer{
+    width:250px;
+    height:250px;
+    border-radius: 50%;
+    background: #2e0d24;
+    margin:0 auto;
+    position: relative;
+    z-index: 10;
+    margin-top:-25px;
+    border:15px solid #fff;
+    box-shadow: 0px 7px 2px 0 #2e0d24ee;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size:7em;
+    color:#fff;
+    font-family:"BadaBoom";
+}
+.main-body .answers-container .answers{
+    width:85%;
+    height: 200px;
+    position: absolute;
+    top:35px;
+    left:50%;
+    transform:translateX(-50%);
+    color:white;
+}
+.main-body .answers-container .answers div{
+    font-size:3.5em;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+
+.main-body .answers-container .answers div{
+    position:absolute;
+    top:0;
+    left:0;
+    width: calc(50% - 100px);
+    height:100px;
+    background-color: #2e0d24;
+}
+.main-body .answers-container .answers div.selected{
+    background-color:#e3c000;
+}
+.main-body .answers-container .answers div.right{
+    background-color:#01ce40;
+}
+.main-body .answers-container .answers div:nth-of-type(2){
+    top:105px;
+}
+.main-body .answers-container .answers div:nth-of-type(3){
+    left:inherit;
+    right:0;
+    transform:translateX(100px);
+}
+.main-body .answers-container .answers div:nth-of-type(4){
+    left:inherit;
+    right:0;
+    top:105px;
+    transform:translateX(100px);
+}
+.question.text .box-container{
+    display:none;
+}
+.main-body .question-container {
+    width: 80%;
+    margin: 0 auto;
+    height: 600px;
+    position: relative;
+}
+.main-body .question-container .question-box {
+    width:100%;
+    height:300px;
+    background-color: #2e0d24;
+    position: absolute;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    color:white;
+    font-size:3em;
+    text-align:center;
+    padding:0 100px;
+    font-family: "helvetica-neue";
+    direction:rtl;
+    line-height: 1.5em;
+}
+.main-body .question-container .question-box::before,.main-body .question-container .question-box::after {
+    content:"";
+    width:100%;
+    height:20px;
+    background-image:url(../png/question-container-top.png);
+    position:absolute;
+    bottom:100%;
+    right:0;
+    background-repeat: no-repeat;
+}
+.main-body .question-container .question-box::after {
+    background-image:url(../png/question-container-bottom.png);
+    bottom:inherit;
+    top:100%;
+    background-size: cover;
+    height:50px;
+}
+.main-body .question-container .question-box .shapes{
+    width:100%;
+    height:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+.main-body .question-container .question-box .shapes::before, .main-body .question-container .question-box .shapes::after{
+    content:"";
+    width:350px;
+    height:40px;
+    position:absolute;
+    left:30px;
+    bottom:calc(100% + 30px);
+    background-image:url(../png/question-shape-top.png);
+    z-index: 10;
+    background-size:contain;
+    background-repeat: no-repeat;
+}
+.main-body .question-container .question-box .shapes::after{
+    background-image:url(../png/question-shape-bottom.png);
+    top:calc(100% + 20px);
+    right:50px;
+    height:50px;
+    width: 50%;
+    left:inherit
+}
+.main-body .question-container .question-box .shapes.question-character::after{
+    display:none;
+}
+.main-body .question-container .question-box .shapes.question-character::before{
+    width:170px;
+    height:170px;
+    right:80px;
+    left:inherit;
+    bottom:100%;
+    background-image:url(../png/question-character.png);
+}
+.question{
+    display:none;
+}
+
+.main-body .home .heading{
+    font-size:5em;
+    color:white;
+    text-align:center;
+    font-family: "BadaBoom";
+    text-shadow: 0px 5px 1px  #2e0d2499;
+}
