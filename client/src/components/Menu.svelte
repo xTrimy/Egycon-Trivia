@@ -34,7 +34,7 @@
     </div>
 {:else}
     <div in:fade="{{duration: 200 }}">
-        <Text_question bind:display="{question_display}" {...$q_data} question_number="50"></Text_question>
+        <Text_question bind:display="{question_display}" {...$q_data} question_number="{$q_number}"></Text_question>
     </div>
 {/if}
 <style>

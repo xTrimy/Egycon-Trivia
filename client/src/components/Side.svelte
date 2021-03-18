@@ -1,11 +1,47 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
     import { slide,fly} from "svelte/transition";
     import { writable } from "svelte/store";
     import { onMount } from "svelte";
     export let teamname;
-    const score = writable(localStorage.getItem("score"+teamname) || 0);
+    const score = writable(localStorage.getItem("score-"+teamname) || 0);
     
-    score.subscribe(val => localStorage.setItem("score"+teamname, val));
+    score.subscribe(val => localStorage.setItem("score-"+teamname, val));
+
+    
+    export const search_used = writable((localStorage.getItem("search_used-"+teamname) == 'true'?true:false) || false);
+    const audience_used = writable((localStorage.getItem("audience_used-"+teamname) == 'true'?true:false)  || false);
+    const new_used = writable((localStorage.getItem("new_used-"+teamname) == 'true'?true:false) || false);
+    const time_used = writable((localStorage.getItem("time_used-"+teamname) == 'true'?true:false)  || false);
+    search_used.subscribe(val => localStorage.setItem("search_used-"+teamname, val));
+    audience_used.subscribe(val => localStorage.setItem("audience_used-"+teamname, val));
+    new_used.subscribe(val => localStorage.setItem("new_used-"+teamname, val));
+    time_used.subscribe(val => localStorage.setItem("time_used-"+teamname, val));
+    console.log($search_used);
+
+    function toggle_search_used(force_off = false){
+        if(force_off === true)
+            search_used.set(true);
+        search_used.set(!$search_used);
+    }
+    function toggle_audience_used(force_off = false){
+        if(force_off === true)
+            audience_used.set(true);
+        audience_used.set(!$audience_used);
+    }
+    function toggle_new_used(force_off = false){
+        if(force_off === true)
+            new_used.set(true);
+        new_used.set(!$new_used);
+    }
+    function toggle_time_used(force_off = false){
+        if(force_off === true)
+            time_used.set(true);
+        time_used.set(!$time_used);
+    }
+    
+
     function increase_score(){
         score.set(parseInt($score)+1);
     }
@@ -14,19 +50,39 @@
             return;
         score.set(parseInt($score)-1);
     }
+    export let team_turn = false;
     export const score_functions = {
         clear_score(){
             score.set(0);
-        }
+            toggle_search_used(true);
+            toggle_audience_used(true);
+            toggle_new_used(true);
+            toggle_time_used(true);
+        },
+        team_turn_on(){
+            team_turn = true;
+        },
+         team_turn_off(){
+            team_turn = false;
+        },
+    }
+    function team_turn_on() {
+        dispatch('message', {
+            text: 'Turn!'
+        });
     }
     let visible = false;
     onMount(() => {
 		visible = true;
 	});
+
+    
+
+
 </script>
 {#if visible}
-<div class="side {teamname}" in:slide="{{duration: 1400}}">
-    <div class="team headline">{teamname} Team</div>
+<div class="side {teamname}" in:slide="{{duration: 1400}}" class:turn={team_turn}>
+    <div class="team headline" on:click={team_turn_on}>{teamname} Team</div>
     <div class="score">
         <span class="score-number headline" >{$score}</span>
         <div class="score-buttons">
@@ -35,15 +91,16 @@
         </div>
     </div>
     <div class="help-methods">
-        <div class="search" in:fly="{{x:300*(teamname=="blue"?-1:1),duration: 1400}}"></div>
-        <div class="audience dark" in:fly="{{x:300*(teamname=="blue"?-1:1),duration: 1900}}"></div>
-        <div class="new dark" in:fly="{{x:300*(teamname=="blue"?-1:1),duration: 2200}}"></div>
-        <div class="time" in:fly="{{x:300*(teamname=="blue"?-1:1),duration: 4000}}"></div>
+        <div class="search" on:click='{toggle_search_used}' class:used={($search_used === true?true:false)} in:fly="{{x:300*(teamname=="blue"?-1:1),duration: 1400}}"></div>
+        <div class="audience dark" on:click={toggle_audience_used} class:used={$audience_used} in:fly="{{x:300*(teamname=="blue"?-1:1),duration: 1900}}"></div>
+        <div class="new dark" on:click={toggle_new_used} class:used={$new_used} in:fly="{{x:300*(teamname=="blue"?-1:1),duration: 2200}}"></div>
+        <div class="time" on:click={toggle_time_used} class:used={$time_used} in:fly="{{x:300*(teamname=="blue"?-1:1),duration: 4000}}"></div>
     </div>
 </div>
 {/if}
 <style>
 .side{
+    opacity:0.4;
     height:100%;
     position: absolute;
     top:0;
@@ -51,7 +108,12 @@
     width:200px;
     color:white;
     padding:50px 0;
+    transition:opacity 0.5s;
 }
+.side.turn{
+    opacity:1;
+}
+
 .side.red{
     left:inherit;
     right:0;
@@ -123,6 +185,10 @@
     transform:skewX(-15deg) translateX(-15px);
     background-color: #fff;
     position: relative;
+    transition:opacity 0.4s;
+}
+.side .help-methods div.used{
+    opacity:0.2;
 }
 .side .help-methods div.dark{
     transform:skewX(15deg) translateX(-15px);

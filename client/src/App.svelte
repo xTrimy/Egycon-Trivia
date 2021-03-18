@@ -9,7 +9,16 @@
         score.clear_score();
         score2.clear_score();
     }
-
+    let team1_turn;
+    let team2_turn;
+    function team_1_turn_on(){
+        score.team_turn_on();
+        score2.team_turn_off();
+    }
+    function team_2_turn_on(){
+        score2.team_turn_on();
+        score.team_turn_off();
+    }
 </script>
 <svelte:head>
     <meta charset="UTF-8">
@@ -23,8 +32,8 @@
 </svelte:head>
     <div >
 	<Container>
-		<Side bind:score_functions={score} slot="team-1" teamname="blue"></Side>
-		<Side bind:score_functions={score2} slot="team-2" teamname="red"></Side>
+		<Side bind:score_functions={score} on:message="{team_1_turn_on}" bind:team_turn={team1_turn} slot="team-1" teamname="blue"></Side>
+		<Side bind:score_functions={score2} on:message="{team_2_turn_on}" bind:team_turn={team2_turn} slot="team-2" teamname="red"></Side>
         <Bottom on:message={clear_score} slot="bottom"></Bottom>
 	</Container>
     </div>
