@@ -2,6 +2,7 @@
 	import Bottom from './components/Bottom.svelte';
 	import Container from './Container.svelte';
 	import Side from './components/Side.svelte';
+import { writable } from 'svelte/store';
     let clear = false;
     let score;
     let score2;
@@ -19,6 +20,10 @@
         score2.team_turn_on();
         score.team_turn_off();
     }
+    let punishment_display = false;
+    function open_punishment(){
+        punishment_display = !punishment_display;
+    }
 </script>
 <svelte:head>
     <meta charset="UTF-8">
@@ -30,11 +35,11 @@
     <link rel="stylesheet" href="layout/css/head_line_english.css">
     <link rel="stylesheet" href="layout/css/master.css">
 </svelte:head>
-    <div >
-	<Container>
+    <div>
+	<Container bind:punishment_display={punishment_display}>
 		<Side bind:score_functions={score} on:message="{team_1_turn_on}" bind:team_turn={team1_turn} slot="team-1" teamname="blue"></Side>
 		<Side bind:score_functions={score2} on:message="{team_2_turn_on}" bind:team_turn={team2_turn} slot="team-2" teamname="red"></Side>
-        <Bottom on:message={clear_score} slot="bottom"></Bottom>
+        <Bottom on:open_punishment={open_punishment} on:clear_score={clear_score} slot="bottom"></Bottom>
 	</Container>
     </div>
 <style>

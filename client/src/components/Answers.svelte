@@ -3,23 +3,61 @@
     export let question_id;
     let is_right = [];
     let ready = [0,0,0,0];
-    let right_choice = false;
-    let wrong_choice = false;
+    export let right_choice = false;
+    export let wrong_choice = false;
     const answers = (async () => {
 		const response = await fetch('http://localhost/egycon_trivia_svelte/server/answer/read.php?question_id='+question_id);
+		// const response = await fetch('./answers.json',{
+        //   headers : { 
+        //     'Content-Type': 'application/json',
+        //     'Accept': 'application/json'
+        //    },
+        //    mode: 'no-cors'
+        //  });
         const responseJson = await response.json();
 
     return await responseJson;
 	})()
 	answers.then(response => {
-            for(let i = 0; i<response.length; i++){
-                response[i].ready = false;
-                is_right.push(response[i].is_right);
+            let records = response;
+            for(let i = 0; i<records.length; i++){
+                records[i].ready = false;
+                is_right.push(records[i].is_right);
             }
-            return response;
+            console.log(records);
+            return records;
         }
     );
-    
+//     const answers = [
+//         {
+//             "id": "4",
+//             "answer": "Test4",
+//             "question_id": "1",
+//             "is_right": 0,
+//             "ready":false
+//         },
+//         {
+//             "id": "1",
+//             "answer": "Test1",
+//             "question_id": "1",
+//             "is_right": 1,
+//             "ready":false
+//         },
+//         {
+//             "id": "2",
+//             "answer": "Test2",
+//             "question_id": "1",
+//             "is_right": 0,
+//             "ready":false
+//         },
+//         {
+//             "id": "3",
+//             "answer": "Test3",
+//             "question_id": "1",
+//             "is_right": 0,
+//             "ready":false
+//         }
+// ];
     function setReady(i){
         stop_timer();
         right_choice = false;

@@ -186,18 +186,7 @@ html,body{
     margin:0 auto;
     margin-bottom:20px;
 }
-.main-body .home .heading::before{
-    position:absolute;
-    content:"";
-    width: 50px;
-    height: 50px;
-    background-image: url(../png/heading-shape.png);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    top:-30px;
-    left:-20px;
-}
+
 
 .footer{
     position: absolute;

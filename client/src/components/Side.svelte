@@ -18,7 +18,6 @@
     audience_used.subscribe(val => localStorage.setItem("audience_used-"+teamname, val));
     new_used.subscribe(val => localStorage.setItem("new_used-"+teamname, val));
     time_used.subscribe(val => localStorage.setItem("time_used-"+teamname, val));
-    console.log($search_used);
 
     function toggle_search_used(force_off = false){
         if(force_off === true)
@@ -75,10 +74,6 @@
     onMount(() => {
 		visible = true;
 	});
-
-    
-
-
 </script>
 {#if visible}
 <div class="side {teamname}" in:slide="{{duration: 1400}}" class:turn={team_turn}>
@@ -109,6 +104,7 @@
     color:white;
     padding:50px 0;
     transition:opacity 0.5s;
+    z-index: 9999;
 }
 .side.turn{
     opacity:1;

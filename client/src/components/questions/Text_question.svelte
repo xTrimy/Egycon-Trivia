@@ -10,7 +10,8 @@
     function close_question(){
         display = false;
     }
-  
+    export let wrong_choice = false;
+    export let right_choice = false;
 </script>
 <div class="main-body">
             <div class="home">
@@ -35,6 +36,22 @@
                     </div>
                 </div>
                 {/if}
-                <Answers question_id="{id}" ></Answers>
+                <Answers bind:right_choice bind:wrong_choice question_id="{id}" ></Answers>
             </div>
         </div>
+<style>
+
+.main-body .home .heading::before{
+    position:absolute;
+    content:"";
+    width: 50px;
+    height: 50px;
+    background-image: url(../layout/png/heading-shape.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    top:-30px;
+    left:-20px;
+}
+
+</style>
