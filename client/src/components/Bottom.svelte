@@ -44,15 +44,18 @@
         })()
     }
 
-
-     document.addEventListener('keydown',function(e){
-        if(e.key == "1"){
-            open_punishment();
-        }
-        if(e.key == "a"){
-            toggle_new_used();
-        }
-    })
+     if(!document.body.getAttribute('data-random_q')){
+        document.body.setAttribute('data-random_q',true);
+        document.addEventListener('keydown',function(e){
+            if(e.key == "1"){
+                open_punishment();
+            }
+            if(e.key == "a"){
+                toggle_new_used();
+            }
+        })
+     }
+     
 </script>
 
 <div class="footer">
