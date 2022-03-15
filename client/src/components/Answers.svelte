@@ -5,7 +5,11 @@
     let ready = [0,0,0,0];
     export let right_choice = false;
     export let wrong_choice = false;
-    const answers = (async () => {
+    export let answers;
+    $:if(question_id != -1){ 
+         ready = [0,0,0,0];
+         is_right = [];
+        answers = (async () => {
 		const response = await fetch('http://localhost/egycon_trivia_svelte/server/answer/read.php?question_id='+question_id);
 		// const response = await fetch('./answers.json',{
         //   headers : { 
@@ -28,6 +32,8 @@
             return records;
         }
     );
+    }
+    
 //     const answers = [
 //         {
 //             "id": "4",
@@ -80,17 +86,24 @@
     function stop_timer(){
         timer.stop_timer();
     }
+    export let time;
+    let fontSize = "25";
+    
 </script>
 
 <div class="answers-container">
-    <Timer bind:timer_functions={timer}></Timer>
+    <Timer bind:time_added={time} bind:timer_functions={timer}></Timer>
     {#await answers}
         <p>...Loading</p>
     {:then data}
         {#if data.length == 4}
         <div class="answers">
             {#each data as answer,i}
-                <div on:click="{()=>setReady(i)}"  class:right_choice_force={(answer.is_right === '1')} class:right_choice class:wrong_choice class:ready="{ready[i]}">{answer.answer}</div>
+                <span style="display:none; position:absolute">
+                {fontSize = 50 - (answer.answer.length - 5)}
+                </span>
+                <div 
+                style="font-size:{fontSize + 'px'}" on:click="{()=>setReady(i)}"  class:right_choice_force={(answer.is_right === '1')} class:right_choice class:wrong_choice class:ready="{ready[i]}">{answer.answer}</div>
             {/each}
         </div>
         {/if}
@@ -105,6 +118,7 @@
     position:relative;
     width:100%;
     height:250px;
+    margin-top:60px;
 }
 .answers-container .answers{
     width:85%;
@@ -113,10 +127,10 @@
     top:15px;
     left:50%;
     transform:translateX(-50%);
-    color:white;
+    color:black;
 }
 .answers-container .answers div{
-    font-size:3.5em;
+    font-size:30px;
     display:flex;
     align-items:center;
     justify-content: center;
@@ -130,9 +144,8 @@
     left:0;
     width: calc(50% - 100px);
     height:100px;
-    background-color: #2e0d24;
 }
-.answers-container .answers div.ready{
+/* .answers-container .answers div.ready{
     background-color:#e3c000;
 }
 .answers-container .answers div.ready.right_choice,.answers-container .answers div.right_choice_force.wrong_choice{
@@ -140,7 +153,7 @@
 }
 .answers-container .answers div.ready.wrong_choice{
     background-color:#f04747;
-}
+} */
 .answers-container .answers div:nth-of-type(2){
     top:105px;
 }

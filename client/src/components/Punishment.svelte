@@ -23,6 +23,12 @@ function animateWheel(){
         document.querySelector('.wheel').style.transform = "rotate("+ ((Math.random()*180+360)*(Math.random(10)+5)) +"deg)";
     },50)
 }
+
+document.addEventListener('keydown',function(e){
+    if(e.key == " "){
+        animateWheel();
+    }
+})
 </script>
 <!-- <audio src="layout/audio/finish-him.mp3" autoplay></audio> -->
 <audio id="wheel_spinner_audio" src="layout/audio/wheel_spin.mp3"></audio>
@@ -33,7 +39,9 @@ function animateWheel(){
 {/if}
 <div class="main-body">
             <div class="home">
-                <div class="heading">Punishment</div>
+                <div class="heading">
+                    <img src="../layout/png/text.png" alt="">
+                </div>
             </div>
             <div class="character">
 
@@ -55,7 +63,7 @@ function animateWheel(){
         left:0;
         height:300px;
         z-index: 0;
-        background-image:url('../layout/png/punishment-back.png');
+        /* background-image:url('../layout/png/punishment-back.png'); */
         background-size: contain;
         opacity:0.4
     }

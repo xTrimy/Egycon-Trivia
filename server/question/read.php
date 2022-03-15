@@ -22,6 +22,7 @@ if ($num > 0) {
             "name" => $name,
             "description" => html_entity_decode($description),
             "image" => html_entity_decode($image),
+            "selected" => $selected,
         );
         array_push($questions_arr["records"], $question_item);
     }

@@ -4,7 +4,7 @@ header("Access-Control-Allow-Headers: access");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
-include_once '../config/database.php';
+include_once '../config/DB.php';
 include_once '../models/answer.php';
 $database = new Database();
 $db = $database->getConnection();

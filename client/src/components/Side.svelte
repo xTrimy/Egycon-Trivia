@@ -6,14 +6,16 @@
     import { onMount } from "svelte";
     export let teamname;
     const score = writable(localStorage.getItem("score-"+teamname) || 0);
-    
     score.subscribe(val => localStorage.setItem("score-"+teamname, val));
 
-    
+    export let s_used = false;
+    export let a_used = false;
+    export let n_used = false;
+    export let t_used = false;
     export const search_used = writable((localStorage.getItem("search_used-"+teamname) == 'true'?true:false) || false);
-    const audience_used = writable((localStorage.getItem("audience_used-"+teamname) == 'true'?true:false)  || false);
-    const new_used = writable((localStorage.getItem("new_used-"+teamname) == 'true'?true:false) || false);
-    const time_used = writable((localStorage.getItem("time_used-"+teamname) == 'true'?true:false)  || false);
+    export const audience_used = writable((localStorage.getItem("audience_used-"+teamname) == 'true'?true:false)  || false);
+    export const new_used = writable((localStorage.getItem("new_used-"+teamname) == 'true'?true:false) || false);
+    export const time_used = writable((localStorage.getItem("time_used-"+teamname) == 'true'?true:false)  || false);
     search_used.subscribe(val => localStorage.setItem("search_used-"+teamname, val));
     audience_used.subscribe(val => localStorage.setItem("audience_used-"+teamname, val));
     new_used.subscribe(val => localStorage.setItem("new_used-"+teamname, val));
@@ -23,21 +25,25 @@
         if(force_off === true)
             search_used.set(true);
         search_used.set(!$search_used);
+        s_used = $search_used;
     }
     function toggle_audience_used(force_off = false){
         if(force_off === true)
             audience_used.set(true);
         audience_used.set(!$audience_used);
+        a_used =$audience_used;
     }
     function toggle_new_used(force_off = false){
         if(force_off === true)
             new_used.set(true);
         new_used.set(!$new_used);
+        n_used = $new_used;
     }
     function toggle_time_used(force_off = false){
         if(force_off === true)
             time_used.set(true);
         time_used.set(!$time_used);
+        t_used = $time_used;
     }
     
 
@@ -74,6 +80,33 @@
     onMount(() => {
 		visible = true;
 	});
+  
+        document.addEventListener('keydown',function(e){
+            if(e.key == "ArrowUp"){
+                if(team_turn)
+                increase_score();
+            }
+            else if(e.key == "ArrowDown"){
+                if(team_turn)
+                decrease_score();
+            }
+            else if(e.key == "ArrowLeft"){
+                console.log(teamname);
+                if(teamname == "blue"){
+                    team_turn = true;
+                }else{
+                    team_turn = false;
+                }
+            }
+            else if(e.key == "ArrowRight"){
+                if(teamname == "red"){
+                    team_turn = true;
+                }else{
+                    team_turn = false;
+                }
+            }
+        });
+    
 </script>
 {#if visible}
 <div class="side {teamname}" in:slide="{{duration: 1400}}" class:turn={team_turn}>

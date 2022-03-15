@@ -3,6 +3,18 @@
 <script>
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
+
+    export let n_used = false;
+    export let punishment_display = true;
+    function toggle_new_used(force_off = false){
+        if(force_off === true)
+            n_used = true;
+        n_used = !n_used;
+        setTimeout(() => {
+            punishment_display = false;
+        }, 800);
+    }
+   
     function Clear() {
         dispatch('clear_score', {
             text: 'Clear!'
@@ -13,18 +25,51 @@
             text: 'Clear!'
         });
     }
+    function open_winner() {
+        dispatch('open_winner', {
+            text: 'Clear!'
+        });
+    }
     import { writable } from "svelte/store";
     export const clear = writable(false);
+
+    function ClearAll() {
+        dispatch('clear_score', {
+            text: 'Clear!'
+        });
+
+        const removeSelect = (async () => {
+            const response = await fetch('http://localhost/egycon_trivia_svelte/server/question/removeSelect.php');
+            return await response.json();
+        })()
+    }
+
+
+     document.addEventListener('keydown',function(e){
+        if(e.key == "1"){
+            open_punishment();
+        }
+        if(e.key == "a"){
+            toggle_new_used();
+        }
+    })
 </script>
 
 <div class="footer">
     <div class="options">
         <div on:click="{open_punishment}" class='item punishment'></div>
-        <div class='item winner'></div>
+        <div on:click="{open_winner}" class='item winner'></div>
+        <div on:click="{Clear}" class='item reset'></div>
+        <div on:click="{ClearAll}"  class='item hard-reset'></div>
+
+
+        <div on:click="{toggle_new_used}" class='item '></div>
+        <div on:click="{open_winner}" class='item winner'></div>
+        <div on:click="{Clear}" class='item reset'></div>
+        <div on:click="{ClearAll}"  class='item hard-reset'></div>
     </div>
-    <img class="logo" src="layout/png/logo.png" alt="Egycon Logo">
+    <img class="logo" src="layout/png/logox.png" alt="Egycon Logo">
     <div class="options">
-        <div class='item reset'></div>
-        <div on:click="{Clear}"  class='item hard-reset'></div>
+        
     </div>
 </div>

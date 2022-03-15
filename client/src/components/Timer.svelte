@@ -14,13 +14,24 @@
 <audio id="tick-sound" src="layout/audio/tick.mp3"  loop="true" ></audio>
 <audio id="buzz-sound" src="layout/audio/buzz.mp3" ></audio>
 <script>
+import { onMount } from "svelte";
 
-    const startTime = 10;
-    let time = startTime;
+
+
+    const startTimeO = 20;
+    export let time = startTimeO;
+    export let time_added = 0;
+    let startTime = startTimeO;
+    $: if(time_added){
+        startTime+= time_added;
+        time+= time_added;
+        time_added = 0;
+    }
     let timeout = false;
     export let check = null;
-    clearInterval(check)
+    clearInterval(check);
     function startTimer(){
+        clearInterval(check);
         let percentage = time*100/startTime;
         setProgress(percentage);
         if(!check)
@@ -39,7 +50,10 @@
             timer_functions.stop_timer();
         }
     }
-
+    onMount(()=>{
+        time++;
+        startTimer();
+    });
     export const timer_functions = {
         stop_timer(){
             const tick_sound = document.querySelector("#tick-sound");
