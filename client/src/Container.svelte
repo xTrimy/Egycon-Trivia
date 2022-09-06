@@ -2,7 +2,7 @@
 import { writable } from 'svelte/store';
 
     import Menu from './components/Menu.svelte';
-    import {effects,random_effect,right_effects,search_effect,audiance_effect, glitch_effects, transition_effects, clock_effect,celebration_effect} from './data/effects.js';
+    import {effects,katakito,baka,punishment,callenge_effects,random_effect,right_effects,search_effect,audiance_effect, glitch_effects, transition_effects, clock_effect,celebration_effect} from './data/effects.js';
     export let time;
     export let n_used = false;
     export let menu;
@@ -121,6 +121,15 @@ import { writable } from 'svelte/store';
     document.addEventListener('keypress',function(e){
       if(e.key == "*"){
         videosProcessor.loadVideo({'url':'layout/video/chika_dance.mp4','start_time':0,'end_time':0});
+      }else if(e.key == "s"){
+        videosProcessor.loadVideo(random_effect(callenge_effects));
+      }else if(e.key == "d"){
+        videosProcessor.loadVideo(random_effect(punishment));
+      }else if(e.key == "b"){
+        videosProcessor.loadVideo(random_effect(baka));
+      }
+      else if(e.key == "k"){
+        videosProcessor.loadVideo(random_effect(katakito));
       }
     })
     $: if (right_choice){    

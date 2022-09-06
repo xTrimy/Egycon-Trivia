@@ -42,3 +42,22 @@ export function random_effect(effect_variable){
     var item = effect_variable[Math.floor(Math.random() * effect_variable.length)];
     return item;
 }
+
+
+export var baka = [
+    { 'name': "baka-opm", 'url': 'layout/video/baka-opm.mp4', 'start_time': 0, 'end_time': 0 },
+]
+
+export var callenge_effects = [
+    { 'name': "dddduel", 'url': 'layout/video/dddduel.mp4', 'start_time': 0, 'end_time': 0 },
+    { 'name': "my-hero", 'url': 'layout/video/my-hero.mp4', 'start_time': 0, 'end_time': 0 },
+]
+
+
+export var punishment = [
+    { 'name': "omae_wa", 'url': 'layout/video/omae_wa.mp4', 'start_time': 0, 'end_time': 0 },
+]
+
+export var katakito = [
+    { 'name': "omae_wa", 'url': 'layout/video/Kata-Kito.mp4', 'start_time': 0, 'end_time': 0 },
+]

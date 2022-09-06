@@ -26,6 +26,8 @@
         });
     }
     function open_winner() {
+        if(punishment_display)
+        open_punishment()
         dispatch('open_winner', {
             text: 'Clear!'
         });
@@ -59,7 +61,10 @@
 </script>
 
 <div class="footer">
-    <div class="options">
+    <div style="width:150px; height:200px; position:absolute; bottom:100px; right:75px;">
+        <img src="layout/png/powered-by.png" style="width:100%; height:100%; object-fit:contain; object-position:center;" alt="">
+    </div>
+    <div class="options" style="position:relative:z-index:99999">
         <div on:click="{open_punishment}" class='item punishment'></div>
         <div on:click="{open_winner}" class='item winner'></div>
         <div on:click="{Clear}" class='item reset'></div>
@@ -67,12 +72,15 @@
 
 
         <div on:click="{toggle_new_used}" class='item '></div>
-        <div on:click="{open_winner}" class='item winner'></div>
+        <!-- <div on:click="{open_winner}" class='item winner'></div>
         <div on:click="{Clear}" class='item reset'></div>
-        <div on:click="{ClearAll}"  class='item hard-reset'></div>
+        <div on:click="{ClearAll}"  class='item hard-reset'></div> -->
     </div>
     <img class="logo" src="layout/png/logox.png" alt="Egycon Logo">
-    <div class="options">
-        
+    <div style="display:flex; " >
+       
+        <div style="width:200px;height:200px;">
+            <img src="layout/png/kata-kito.png" style="width:100%; height:100%; object-fit:contain; object-position:center;" alt="">
+        </div>
     </div>
 </div>
